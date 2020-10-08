@@ -1,9 +1,27 @@
-<h1>{{title}}</h1>
+<button (click)="createUser()">Create New User</button>
+<button (click)="performLogin()">User Login</button>
 
-<button (click)="login()" >Login</button>
+<!-- header  -->
 
-<ul>
-    <li *ngFor="let acrt of art">
-        <small>{{acrt.articleId}}</small>{{acrt.title}}
-    </li>  
+<h1>{{ title }}</h1>
+
+<button (click)="articlesService.get()">Get Articles</button>
+<button (click)="PostInfo()">Post Article</button>
+
+<div *ngIf="articlesService.loading">Now Loading...</div>
+
+<ul *ngIf="articlesService.loaded">
+
+  <li *ngFor="let artc of articlesService.articles">
+    <small>Article ID: {{ artc.articleId }},   </small> 
+    <small>Title: {{ artc.title }},   </small>
+    <small>Description: {{ artc.description }},   </small>
+    <small>body: {{ artc.body }}</small>
+  </li>
+
 </ul>
+
+<!-- // footer -->
+
+<p>articleCount: {{ articlesService.articlesCount }}</p>
+<!-- <p>username: {{ UserService.User }}</p> -->
