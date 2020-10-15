@@ -18,12 +18,5 @@ export interface Article {
     title: string;
     description: string;
     body: string;
-    // slug: string;
-}
-
-export interface UserEnvelope {
-    username: string;
-    email: string;
-    password: string;
-    token: string;
+    slug: string;
 }

@@ -1,14 +1,21 @@
-export interface UserLoginCommand{
-    user: UserLoginData;
-}
-
-export interface UserLoginData{
-    email: string;
-    password: string;
+export interface UserEnvelope{
+    user: User;
 }
 
 export interface User{
-    user: User; 
+    username: string;
+    email: string;
+    password: string;
+    token: string;
+}
+
+export interface UserLoginCommand{
+    user: LoginUserData;
+}
+
+export interface LoginUserData{
+    email: string;
+    password: string;
 }
 
 export interface CreateUserCommand{
@@ -16,6 +23,7 @@ export interface CreateUserCommand{
 }
 
 export interface CreateUserData{
-    email?: string;
-    password?: string;
+    username: string;
+    email: string;
+    password: string;
 }

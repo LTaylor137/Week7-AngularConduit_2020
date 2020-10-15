@@ -1,27 +1,65 @@
-<button (click)="createUser()">Create New User</button>
-<button (click)="performLogin()">User Login</button>
+<div class="pagecont">
 
-<!-- header  -->
+  <!-- header  -->
+  <div class="header">
 
-<h1>{{ title }}</h1>
+    <p>Welcome {{ usernameL.value }}</p>
 
-<button (click)="articlesService.get()">Get Articles</button>
-<button (click)="PostInfo()">Post Article</button>
+    <div>
+      Create New User<br>
+      <input placeholder="username" type="username" #usernameC />
+      <input placeholder="email" type="email" #emailC />
+      <input placeholder="password" type="password" #passwordC />
+      <button (click)="performCreateUser(usernameC.value,emailC.value,passwordC.value)">Create New User</button>
+    </div>
 
-<div *ngIf="articlesService.loading">Now Loading...</div>
+    <div>
+      User Login<br>
+      <input placeholder="username" type="username" #usernameL />
+      <input placeholder="email" type="email" #emailL />
+      <input placeholder="password" type="password" #passwordL />
+      <button (click)="performLogin(usernameL.value,emailL.value,passwordL.value)">User Login</button>
 
-<ul *ngIf="articlesService.loaded">
+      <h1>{{ title }}</h1>
+      <button (click)="articlesService.get()">Get Articles</button>
+      <button (click)="PostInfo()">Post New Article</button>
+    </div>
 
-  <li *ngFor="let artc of articlesService.articles">
-    <small>Article ID: {{ artc.articleId }},   </small> 
-    <small>Title: {{ artc.title }},   </small>
-    <small>Description: {{ artc.description }},   </small>
-    <small>body: {{ artc.body }}</small>
-  </li>
+  </div>
 
-</ul>
+  <!-- body -->
+  <div class="body">
 
-<!-- // footer -->
 
-<p>articleCount: {{ articlesService.articlesCount }}</p>
-<!-- <p>username: {{ UserService.User }}</p> -->
+    <div *ngIf="articlesService.loading">Now Loading...</div>
+
+    <ul class="listcont" *ngIf="articlesService.loaded">
+
+
+      <li class="articlecont" *ngFor="let art of articlesService.articles">
+
+        <small>Article ID: {{ art.articleId }}, </small>
+        <small>Title: {{ art.title }}, </small> 
+        <br>
+        <small>Description: {{ art.description }}, </small>
+        <br>
+        <small>body: {{ art.body }}</small>
+
+      </li>
+
+
+    </ul>
+
+  </div>
+
+  <!-- // footer -->
+  <div class="footer">
+    <p>articleCount: {{ articlesService.articlesCount }}</p>
+  </div>
+
+  <!-- <p>username: {{ user.username}}</p>
+<p>username: {{ user.email}}</p>
+<p>username: {{ user.password}}</p> -->
+
+
+</div>

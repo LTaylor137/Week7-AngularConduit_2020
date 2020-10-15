@@ -10,6 +10,9 @@ export class UserService {
 
   user: User;
   loading: boolean = false;
+ 
+  email: string;
+  password: string;
 
   constructor(
     private httpClient: HttpClient
@@ -19,10 +22,11 @@ export class UserService {
   // 
   // 
 
-  userLogin(email: string, password: string) {
+  userLogin(username: string, email: string, password: string) {
     let request = this.httpClient.post<UserLoginCommand>("https://swindev.me/users/login",
       {
         user: {
+          username: username,
           email: email,
           password: password
         }
@@ -34,7 +38,9 @@ export class UserService {
         console.log(response);
       },
       (error) => {
-        if (error.status == 401) {
+        if (error.status == 422) {
+          alert("Login Error: Username, email, or password cannot be blank")
+        } else if (error.status == 401) {
           alert("Login failed, wrong username or password.")
         }
       }
@@ -42,22 +48,28 @@ export class UserService {
 
   }
 
-  createUser(email: string, password: string) {
+
+  createUser(username: string, email: string, password: string) {
     let request = this.httpClient.post<CreateUserCommand>("http://swindev.me/users",
-      {
-        user: {
-          email: email,
-          password: password
-        }
-      } as CreateUserCommand);
+    {
+      user: {
+        username: username,
+        email: email,
+        password: password
+      }
+    } as CreateUserCommand);
 
     request.subscribe(
       (response) => {
         console.log(response);
       },
       (error) => {
-        console.log("Error from http://swindev.me", error);
+        if (error.status == 422) {
+          alert("Create Error: Username, email, or password cannot be blank")
+        } else if (error.status == 400) {
+          alert("Error. Possible cause: username already exists.")
         }
+      }
     );
 
   }
